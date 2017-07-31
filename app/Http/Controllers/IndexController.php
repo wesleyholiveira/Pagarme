@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Repository\FantasiaRepository;
+use App\Helpers\Helpers;
 
 /**
  * Class IndexController
@@ -10,8 +11,12 @@ use Illuminate\Http\Request;
  */
 class IndexController extends Controller
 {
-    public function get(Request $request)
+    public function get(FantasiaRepository $fantasiaRepository)
     {
-        return view('index', ['name' => 'falae ae cuzaçço']);
+        return view('index',
+            [
+                'fantasias'     => $fantasiaRepository->buscar(),
+                'src'           => Helpers::asset('/bin/app.bundle.js')]
+        );
     }
 }

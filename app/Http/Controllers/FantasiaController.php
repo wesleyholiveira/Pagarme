@@ -49,18 +49,13 @@ class FantasiaController extends Controller
     {
         try {
 
-            $response = null;
-
-            if (isset($id) && is_integer($id)) {
-                $response = $this->fantasia->buscar($id);
-            } else {
-                $response = $this->fantasia->findAll();
-            }
+            $response = $this->fantasia->buscar($id);
 
             return response()->json(
                 $response,
                 StatusCodeInterface::STATUS_OK
             );
+
         } catch (Exception $e) {
             return response()->json(
                 ['descricao' => $e->getMessage()],

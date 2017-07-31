@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="fantasia")
  */
-class FantasiaEntity extends AbstractEntity
+class FantasiaEntity extends AbstractEntity implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -46,6 +46,20 @@ class FantasiaEntity extends AbstractEntity
         $this->descricao = $descricao;
         $this->valor = $valor;
         $this->fornecedor = $fornecedor;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id'            => $this->id,
+            'descricao'     => $this->descricao,
+            'valor'         => $this->valor,
+            'fornecedor'    => [
+                'id'        => $this->fornecedor->getId(),
+                'nome'      => $this->fornecedor->getNome(),
+                'comissao'  => $this->fornecedor->getComissao()
+            ]
+        ];
     }
 
     public function getId() : int

@@ -1,0 +1,37 @@
+.fantasy {
+    width: 200px;
+    margin-right: 1em;
+    font-size: 15px;
+    flex-direction: row;
+    & > .figure {
+        color: #666;
+        min-height: 265px;
+        margin: 0 auto;
+        display: block;
+        box-shadow: 1px 1px 15px 6px #e2e2e2;
+        & > .caption {
+            text-align: center;
+            margin: {
+                top: .5em;
+                bottom: .5em;
+            }
+            & > .price {
+                color: #0a0a0a;
+                font: {
+                    weight: bold;
+                    size: 1.2em;
+                }
+                display: block;
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    .fantasy {
+        margin: {
+            right: 0;
+            bottom: 1em;
+        }
+    }
+}

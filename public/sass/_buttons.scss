@@ -1,0 +1,13 @@
+.btn-add-cart {
+    width: 100%;
+    justify-content: center;
+    color: #fff;
+    padding: 5px;
+    background-color: #00a300;
+    border: 2px solid darken(#00a300, 2%);
+    &::after {
+        font-size: 1.25em;
+        content: ' +';
+    }
+    cursor: pointer;
+}

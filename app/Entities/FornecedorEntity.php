@@ -46,13 +46,13 @@ class FornecedorEntity extends AbstractEntity implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
-            'nome' => $this->nome,
-            'comissao' => $this->comissao,
-            'fantasia' => [
-//                'id' => $this->fantasia->getId(),
-//                'valor' => $this->fantasia->getValor(),
-//                'descricao' => $this->fantasia->getDescricao()
+            'id'            => $this->id,
+            'nome'          => $this->nome,
+            'comissao'      => $this->comissao,
+            'fantasia'      => [
+                'id'        => $this->fantasia->getId(),
+                'valor'     => $this->fantasia->getValor(),
+                'descricao' => $this->fantasia->getDescricao()
             ]
         ];
     }

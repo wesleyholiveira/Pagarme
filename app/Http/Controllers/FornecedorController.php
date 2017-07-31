@@ -54,13 +54,8 @@ class FornecedorController extends Controller
     public function get(int $id = null)
     {
         try {
-            $response = null;
 
-            if (isset($id) && is_integer($id)) {
-                $response = $this->fornecedor->buscar($id);
-            } else {
-                $response = $this->fornecedor->findAll();
-            }
+            $response = $this->fornecedor->buscar($id);
 
             return response()->json(
                 $response,

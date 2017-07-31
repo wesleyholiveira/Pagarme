@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Factories\FantasiaFactory;
+use App\Http\Validator\FantasiaValidator;
 use App\Repository\FantasiaRepository;
 use App\Repository\FornecedorRepository;
 use Fig\Http\Message\StatusCodeInterface;
@@ -24,21 +25,27 @@ class FantasiaController extends Controller
     /** @var FornecedorRepository */
     protected $fornecedor;
 
+    /** @var FantasiaValidator */
+    protected $fantasiaValidator;
+
     /**
      * FantasiaController constructor.
      * @param FantasiaRepository   $fantasia
      * @param FantasiaFactory      $fantasiaFactory
      * @param FornecedorRepository $fornecedor
+     * @param FantasiaValidator    $fantasiaValidator
      */
     public function __construct(
         FantasiaRepository $fantasia,
         FantasiaFactory $fantasiaFactory,
-        FornecedorRepository $fornecedor
+        FornecedorRepository $fornecedor,
+        FantasiaValidator $fantasiaValidator
     )
     {
         $this->fantasia = $fantasia;
         $this->fantasiaFactory = $fantasiaFactory;
         $this->fornecedor = $fornecedor;
+        $this->fantasiaValidator = $fantasiaValidator;
     }
 
     /**
@@ -73,6 +80,9 @@ class FantasiaController extends Controller
         try {
             $data = $request->all();
             $data['id'] = $data['id'] ?? 0;
+
+            $this->fantasiaValidator->validate($data);
+
             $factory = $this->fantasiaFactory;
             $fornecedor = $this->fornecedor->buscar($data['fornecedorId']);
             $fantasia = $factory($data['id'], $data['descricao'], $data['valor'], $fornecedor);

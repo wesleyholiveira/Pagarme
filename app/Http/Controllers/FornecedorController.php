@@ -9,6 +9,10 @@ use Fig\Http\Message\StatusCodeInterface;
 use Illuminate\Http\Request;
 use \Exception;
 
+/**
+ * Class FornecedorController
+ * @package App\Http\Controllers
+ */
 class FornecedorController extends Controller
 {
     /* @var FornecedorFactory */

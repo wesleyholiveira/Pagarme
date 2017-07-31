@@ -9,6 +9,10 @@ use Fig\Http\Message\StatusCodeInterface;
 use Illuminate\Http\Request;
 use \Exception;
 
+/**
+ * Class FantasiaController
+ * @package App\Http\Controllers
+ */
 class FantasiaController extends Controller
 {
     /* @var FantasiaFactory */

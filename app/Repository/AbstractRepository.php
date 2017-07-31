@@ -32,9 +32,15 @@ abstract class AbstractRepository extends EntityRepository implements DefaultCRU
      * @return object|AbstractEntity
      * @throws NotFoundHttpException
      */
-    public function buscar(int $id)
+    public function buscar(int $id = null)
     {
-        $response = $this->find($id);
+        $response = null;
+
+        if (isset($id) && is_integer($id)) {
+            $response = $this->find($id);
+        } else {
+            $response = $this->findAll();
+        }
 
         if (empty($response)) {
             throw new NotFoundHttpException(

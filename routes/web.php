@@ -27,3 +27,7 @@ $app->put('/fornecedor', 'FornecedorController@put');
 $app->delete('/fornecedor[/{id}]', 'FornecedorController@delete');
 
 // Imagem
+$app->get('/imagem[/{id}]', 'ImagemController@get');
+$app->post('/imagem', 'ImagemController@post');
+$app->put('/imagem', 'ImagemController@put');
+$app->delete('/imagem[/{id}]', 'ImagemController@delete');

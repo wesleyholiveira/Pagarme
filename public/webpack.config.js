@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const IconfontWebpackPlugin = require('iconfont-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename: "[name].[contenthash].css"
@@ -7,7 +8,7 @@ const extractSass = new ExtractTextPlugin({
 module.exports = {
     entry: './src/app.js',
     output: {
-        path: '/var/www/html/pagarme-teste/public/bin',
+        path: 'C:\\xampp\\htdocs\\Pagarme\\public\\bin',
         filename: 'app.bundle.js'
     },
     module: {

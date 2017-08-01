@@ -1,14 +1,22 @@
 .fantasy {
     width: 200px;
-    margin-right: 1em;
+    margin: {
+        right: 1em;
+        bottom: 1em;
+    }
     font-size: 15px;
     flex-direction: row;
     & > .figure {
         color: #666;
-        min-height: 265px;
+        padding-bottom: 5px;
         margin: 0 auto;
         display: block;
         box-shadow: 1px 1px 15px 6px #e2e2e2;
+        & > img {
+            max-width: 200px;
+            max-height: 130px;
+            height: auto;
+        }
         & > .caption {
             text-align: center;
             margin: {
@@ -23,15 +31,6 @@
                 }
                 display: block;
             }
-        }
-    }
-}
-
-@media(max-width: 768px) {
-    .fantasy {
-        margin: {
-            right: 0;
-            bottom: 1em;
         }
     }
 }

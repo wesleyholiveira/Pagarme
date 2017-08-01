@@ -2,12 +2,13 @@
     width: 100%;
     justify-content: center;
     color: #fff;
+    margin-top: 10px;
     padding: 5px;
     background-color: #00a300;
     border: 2px solid darken(#00a300, 2%);
+    cursor: pointer;
     &::after {
         font-size: 1.25em;
         content: ' +';
     }
-    cursor: pointer;
 }

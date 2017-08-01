@@ -1,0 +1,31 @@
+.badge {
+  font-size: .45em;
+  width: auto;
+  height: auto;
+  padding: {
+    left: 2px;
+    right: 5px;
+  }
+  background-color: #00a300;
+  border-radius: 50px;
+  font-weight: 600;
+  left: 90%;
+  position: absolute;
+  &.badge-animation {
+    animation: {
+      name: badge-animation;
+      duration: 1s;
+    }
+  }
+}
+
+@keyframes badge-animation {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg)
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(90deg)
+  }
+}

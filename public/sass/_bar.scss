@@ -1,0 +1,19 @@
+.bar {
+  width: 60px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #262626;
+  top: 0px;
+  right: 0px;
+  position: fixed;
+  list-style-type: none;
+  @extend .container;
+  & .cart {
+    top: 5px;
+    color: #fff;
+    font-size: 2em;
+    flex-direction: row;
+    position: relative;
+  }
+}

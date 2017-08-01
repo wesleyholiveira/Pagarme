@@ -35,51 +35,93 @@ class FantasiaEntity extends AbstractEntity implements \JsonSerializable
      */
     protected $fornecedor;
 
+    /**
+     * @ORM\OneToOne(targetEntity="ImagemEntity", inversedBy="fantasia")
+     * @var ImagemEntity
+     */
+    protected $imagem;
+
     public function __construct(
         int $id = null,
         string $descricao,
         float $valor,
-        FornecedorEntity $fornecedor
+        FornecedorEntity $fornecedor,
+        ImagemEntity $imagem
     )
     {
         $this->id = $id;
         $this->descricao = $descricao;
         $this->valor = $valor;
         $this->fornecedor = $fornecedor;
+        $this->imagem = $imagem;
     }
 
     public function jsonSerialize()
     {
+        $fornecedor = $this->fornecedor;
+        if(!isset($fornecedor))
+            $fornecedor = '';
+
+        $imagem = $this->imagem;
+        if(!isset($imagem))
+            $imagem = '';
+
         return [
             'id'            => $this->id,
             'descricao'     => $this->descricao,
             'valor'         => $this->valor,
-            'fornecedor'    => [
-                'id'        => $this->fornecedor->getId(),
-                'nome'      => $this->fornecedor->getNome(),
-                'comissao'  => $this->fornecedor->getComissao()
-            ]
+            'fornecedor'    => [$fornecedor],
+            'imagem'        => [$imagem]
         ];
     }
 
+    /**
+     * @return int
+     */
     public function getId() : int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getDescricao() : string
     {
         return $this->descricao;
     }
 
+    /**
+     * @return float
+     */
     public function getValor() : float
     {
         return $this->valor;
     }
 
+    /**
+     * @return FornecedorEntity
+     */
     public function getFornecedor() : FornecedorEntity
     {
         return $this->fornecedor;
+    }
+
+    /**
+     * @param ImagemEntity $imagem
+     * @return ImagemEntity
+     */
+    public function setImagem(ImagemEntity $imagem)
+    {
+        return $this->imagem = $imagem;
+    }
+
+    /**
+     * @return ImagemEntity
+     */
+    public function getImagem() : ImagemEntity
+    {
+        return $this->imagem;
     }
 
 }

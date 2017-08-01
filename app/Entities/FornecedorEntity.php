@@ -26,29 +26,30 @@ class FornecedorEntity extends AbstractEntity implements JsonSerializable
     protected $nome;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
-     */
-    protected $comissao = 0.85;
-
-    /**
      * @ORM\OneToOne(targetEntity="FantasiaEntity", mappedBy="fornecedor")
      * @var FantasiaEntity
      */
     protected $fantasia;
 
-    public function __construct(int $id = null, string $nome, float $comissao)
+    /**
+     * FornecedorEntity constructor.
+     * @param int|null $id
+     * @param string $nome
+     */
+    public function __construct(int $id = null, string $nome)
     {
         $this->id = $id;
         $this->nome = $nome;
-        $this->comissao = $comissao;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize()
     {
         return [
             'id'            => $this->id,
             'nome'          => $this->nome,
-            'comissao'      => $this->comissao,
             'fantasia'      => [
                 'id'        => $this->fantasia->getId(),
                 'valor'     => $this->fantasia->getValor(),
@@ -57,26 +58,33 @@ class FornecedorEntity extends AbstractEntity implements JsonSerializable
         ];
     }
 
+    /**
+     * @return int
+     */
     public function getId() : int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getNome() : string
     {
         return $this->nome;
     }
 
-    public function getComissao() : float
-    {
-        return $this->comissao;
-    }
-
+    /**
+     * @param FantasiaEntity $fantasia
+     */
     public function setFantasia(FantasiaEntity $fantasia)
     {
         $this->fantasia = $fantasia;
     }
 
+    /**
+     * @return FantasiaEntity
+     */
     public function getFantasia() : FantasiaEntity
     {
         return $this->fantasia;

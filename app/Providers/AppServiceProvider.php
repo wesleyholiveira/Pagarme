@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use App\Entities\FantasiaEntity;
 use App\Entities\FornecedorEntity;
-use App\Factories\FantasiaFactory;
-use App\Factories\FornecedorFactory;
+use App\Entities\ImagemEntity;
 use App\Repository\FantasiaRepository;
 use App\Repository\FornecedorRepository;
+use App\Repository\ImagemRepository;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(FornecedorRepository::class, function($app) {
            return new FornecedorRepository($app['em'], $app['em']->getClassMetadata(FornecedorEntity::class));
+        });
+
+        $this->app->bind(ImagemRepository::class, function($app) {
+            return new ImagemRepository($app['em'], $app['em']->getClassMetadata(ImagemEntity::class));
         });
 
     }

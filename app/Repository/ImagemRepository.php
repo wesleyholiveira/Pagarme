@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wesle
- * Date: 31/07/2017
- * Time: 19:54
- */
+
+namespace App\Repository;
+
+class ImagemRepository extends AbstractRepository implements InterfaceImagemRepository
+{
+    /** @var  string */
+    protected $className = 'Imagem';
+}

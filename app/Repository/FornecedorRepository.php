@@ -8,4 +8,6 @@ namespace App\Repository;
  */
 class FornecedorRepository extends AbstractRepository implements InterfaceFornecedorRepository
 {
+    /** @var  string */
+    protected $className = 'Fornecedor';
 }

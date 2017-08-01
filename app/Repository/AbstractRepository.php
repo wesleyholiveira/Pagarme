@@ -18,7 +18,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 abstract class AbstractRepository extends EntityRepository implements DefaultCRUDRepository
 {
+    /* @var EntityManagerInterface */
     private $em;
+
+    /** @var  string */
+    protected $className = 'Abstract';
 
     public function __construct(EntityManagerInterface $em, ClassMetadata $class)
     {
@@ -35,16 +39,23 @@ abstract class AbstractRepository extends EntityRepository implements DefaultCRU
     public function buscar(int $id = null)
     {
         $response = null;
+        $mensagem = 'Nenhum registro encontrado';
 
         if (isset($id) && is_integer($id)) {
             $response = $this->find($id);
+            $mensagem = sprintf(
+              '%s com o ID %d para a entidade %s',
+              $mensagem,
+              $id,
+              $this->className
+            );
         } else {
             $response = $this->findAll();
         }
 
         if (empty($response)) {
             throw new NotFoundHttpException(
-                'Nenhum registro encontrado.',
+                $mensagem,
                 null,
                 StatusCodeInterface::STATUS_NOT_FOUND
             );

@@ -18,10 +18,9 @@ class FornecedorFactory
      */
     public function __invoke(
         int $id = null,
-        string $nome,
-        float $comissao
+        string $nome
     ) : FornecedorEntity
     {
-        return new FornecedorEntity($id, $nome, $comissao);
+        return new FornecedorEntity($id, $nome);
     }
 }

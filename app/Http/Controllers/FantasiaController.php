@@ -6,6 +6,7 @@ use App\Factories\FantasiaFactory;
 use App\Http\Validator\FantasiaValidator;
 use App\Repository\FantasiaRepository;
 use App\Repository\FornecedorRepository;
+use App\Repository\ImagemRepository;
 use Fig\Http\Message\StatusCodeInterface;
 use Illuminate\Http\Request;
 use \Exception;
@@ -28,24 +29,30 @@ class FantasiaController extends Controller
     /** @var FantasiaValidator */
     protected $fantasiaValidator;
 
+    /** @var  ImagemRepository */
+    protected $imagemRepository;
+
     /**
      * FantasiaController constructor.
      * @param FantasiaRepository   $fantasia
      * @param FantasiaFactory      $fantasiaFactory
      * @param FornecedorRepository $fornecedor
      * @param FantasiaValidator    $fantasiaValidator
+     * @param ImagemRepository     $imagemRepository
      */
     public function __construct(
         FantasiaRepository $fantasia,
         FantasiaFactory $fantasiaFactory,
         FornecedorRepository $fornecedor,
-        FantasiaValidator $fantasiaValidator
+        FantasiaValidator $fantasiaValidator,
+        ImagemRepository $imagemRepository
     )
     {
         $this->fantasia = $fantasia;
         $this->fantasiaFactory = $fantasiaFactory;
         $this->fornecedor = $fornecedor;
         $this->fantasiaValidator = $fantasiaValidator;
+        $this->imagemRepository = $imagemRepository;
     }
 
     /**
@@ -85,7 +92,9 @@ class FantasiaController extends Controller
 
             $factory = $this->fantasiaFactory;
             $fornecedor = $this->fornecedor->buscar($data['fornecedorId']);
-            $fantasia = $factory($data['id'], $data['descricao'], $data['valor'], $fornecedor);
+            $imagem = $this->imagemRepository->buscar($data['imagemId']);
+
+            $fantasia = $factory($data['id'], $data['descricao'], $data['valor'], $fornecedor, $imagem);
 
             return response()->json(
                 ['descricao' => $this->fantasia->criar($fantasia)],

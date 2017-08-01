@@ -83,7 +83,7 @@ class FornecedorController extends Controller
             $this->fornecedorValidator->validate($data);
 
             $factory = $this->fornecedorFactory;
-            $fornecedor = $factory($data['id'], $data['nome'], $data['comissao']);
+            $fornecedor = $factory($data['id'], $data['nome']);
 
             return response()->json(
                 ['descricao' => $this->fornecedor->criar($fornecedor)],
@@ -110,7 +110,7 @@ class FornecedorController extends Controller
             $this->fornecedorValidator->validate($data);
 
             $factory = $this->fornecedorFactory;
-            $fornecedor = $factory($data['id'], $data['nome'], $data['comissao']);
+            $fornecedor = $factory($data['id'], $data['nome']);
             return response()->json(
                 ['descricao' => $this->fornecedor->atualizar($fornecedor)],
                 StatusCodeInterface::STATUS_OK

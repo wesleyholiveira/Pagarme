@@ -13,9 +13,15 @@ class IndexController extends Controller
 {
     public function get(FantasiaRepository $fantasiaRepository)
     {
+        try {
+            $response = $fantasiaRepository->buscar();
+        } catch(\Exception $e) {
+            $response = $e->getMessage();
+        }
+
         return view('index',
             [
-                'fantasias'     => $fantasiaRepository->buscar(),
+                'response'     => $response,
                 'src'           => Helpers::asset('/bin/app.bundle.js')]
         );
     }

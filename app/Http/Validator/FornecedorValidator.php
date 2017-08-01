@@ -11,6 +11,5 @@ class FornecedorValidator extends AbstractValidator
     protected $rules = [
         'id' => 'numeric|required',
         'nome' => 'required|min:4|max:60',
-        'comissao' => 'required|numeric'
     ];
 }

@@ -1,7 +1,15 @@
 <?php
+
+namespace App\Http\Validator;
+
 /**
- * Created by PhpStorm.
- * User: wesle
- * Date: 31/07/2017
- * Time: 19:52
+ * Class FornecedorValidator
+ * @package App\Http\Validator
  */
+class ImagemValidator extends AbstractValidator
+{
+    protected $rules = [
+        'id' => 'numeric|required',
+        'uri' => 'required|min:8|max:255'
+    ];
+}

@@ -17,8 +17,18 @@ class Helpers
      * @param bool $secured
      * @return mixed
      */
-    public static function asset($path, $secured = false) {
+    public static function asset($path, $secured = false)
+    {
         return self::urlGenerator()->asset($path, $secured);
+    }
+
+    /**
+     * @param float $number
+     * @return string
+     */
+    public static function moneyFormat(float $number) : string
+    {
+        return number_format($number, 2, ',', '.');
     }
 
 }

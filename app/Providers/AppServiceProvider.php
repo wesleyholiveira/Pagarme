@@ -5,10 +5,15 @@ namespace App\Providers;
 use App\Entities\FantasiaEntity;
 use App\Entities\FornecedorEntity;
 use App\Entities\ImagemEntity;
+use App\Factories\BankAccountFactory;
+use App\Factories\FakerFactory;
 use App\Repository\FantasiaRepository;
 use App\Repository\FornecedorRepository;
 use App\Repository\ImagemRepository;
+use App\Services\PagarMeService;
+use Faker\Generator;
 use Illuminate\Support\ServiceProvider;
+use PagarMe\Sdk\PagarMe;
 
 /**
  * Class AppServiceProvider
@@ -33,6 +38,19 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ImagemRepository::class, function($app) {
             return new ImagemRepository($app['em'], $app['em']->getClassMetadata(ImagemEntity::class));
+        });
+
+        $this->app->bind(PagarMe::class, function() {
+           return new PagarMe(env('PAGARME_KEY'));
+        });
+
+        $this->app->bind(FakerFactory::class, function() {
+            $faker = new FakerFactory();
+            return $faker();
+        });
+
+        $this->app->bind(BankAccountFactory::class, function() {
+            return new BankAccountFactory(app(PagarMeService::class), app(Generator::class));
         });
 
     }

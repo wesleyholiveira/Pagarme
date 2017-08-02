@@ -21,8 +21,10 @@ class IndexController extends Controller
 
         return view('index',
             [
-                'response'     => $response,
-                'src'           => Helpers::asset('/bin/app.bundle.js')]
+                'response'      => $response,
+                'src'           => Helpers::asset('/bin/app.bundle.js'),
+                'uri'           => Helpers::urlGenerator()->current()
+            ]
         );
     }
 }

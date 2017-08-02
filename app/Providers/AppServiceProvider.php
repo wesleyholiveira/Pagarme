@@ -2,16 +2,14 @@
 
 namespace App\Providers;
 
+use Faker\Generator as FakerGenerator;
+use Faker\Factory as FakerFactory;
 use App\Entities\FantasiaEntity;
 use App\Entities\FornecedorEntity;
 use App\Entities\ImagemEntity;
-use App\Factories\BankAccountFactory;
-use App\Factories\FakerFactory;
 use App\Repository\FantasiaRepository;
 use App\Repository\FornecedorRepository;
 use App\Repository\ImagemRepository;
-use App\Services\PagarMeService;
-use Faker\Generator;
 use Illuminate\Support\ServiceProvider;
 use PagarMe\Sdk\PagarMe;
 
@@ -44,13 +42,8 @@ class AppServiceProvider extends ServiceProvider
            return new PagarMe(env('PAGARME_KEY'));
         });
 
-        $this->app->bind(FakerFactory::class, function() {
-            $faker = new FakerFactory();
-            return $faker();
-        });
-
-        $this->app->bind(BankAccountFactory::class, function() {
-            return new BankAccountFactory(app(PagarMeService::class), app(Generator::class));
+        $this->app->singleton(FakerGenerator::class, function() {
+            return FakerFactory::create('pt_BR');
         });
 
     }

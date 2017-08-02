@@ -31,3 +31,6 @@ $app->get('/imagem[/{id}]', 'ImagemController@get');
 $app->post('/imagem', 'ImagemController@post');
 $app->put('/imagem', 'ImagemController@put');
 $app->delete('/imagem[/{id}]', 'ImagemController@delete');
+
+// Checkout
+$app->post('/doCheckout', 'CheckoutController@doCheckout');

@@ -58,20 +58,18 @@ class FantasiaEntity extends AbstractEntity implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $fornecedor = $this->fornecedor;
-        if(!isset($fornecedor))
-            $fornecedor = '';
-
-        $imagem = $this->imagem;
-        if(!isset($imagem))
-            $imagem = '';
-
         return [
             'id'            => $this->id,
             'descricao'     => $this->descricao,
             'valor'         => $this->valor,
-            'fornecedor'    => [$fornecedor],
-            'imagem'        => [$imagem]
+            'fornecedor'    => [
+                'id'        => $this->fornecedor->getId(),
+                'nome'      => $this->fornecedor->getNome()
+            ],
+            'imagem'        => [
+                'id'        => $this->imagem->getId(),
+                'uri'       => $this->imagem->getUri()
+            ]
         ];
     }
 

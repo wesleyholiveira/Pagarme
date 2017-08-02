@@ -59,6 +59,7 @@ class PagarMeService
     public function createRecipient(
         BankAccount $bankAccount,
         string $transferInterval,
+        int $transferDay,
         bool $transferEnabled,
         bool $automaticAnticipationEnabled,
         float $anticipatableVolumePercentage
@@ -68,6 +69,7 @@ class PagarMeService
             $this->pagarMe->recipient()->create(
                 $bankAccount,
                 $transferInterval,
+                $transferDay,
                 $transferEnabled,
                 $automaticAnticipationEnabled,
                 $anticipatableVolumePercentage

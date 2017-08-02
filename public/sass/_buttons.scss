@@ -14,8 +14,8 @@
 }
 .btn-checkout {
     @extend .btn-add-cart;
+    width: 768px;
     margin-top: 0;
-    max-width: 768px;
     display: none;
     &::after {
         content: '';

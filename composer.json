@@ -11,10 +11,10 @@
         "vlucas/phpdotenv": "~2.2",
         "pagarme/pagarme-php": "^3.3",
         "fig/http-message-util": "^1.1",
-        "zendframework/zend-diactoros": "^1.4"
+        "zendframework/zend-diactoros": "^1.4",
+        "fzaninotto/faker": "^1.6"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
         "phpunit/phpunit": "~5.0",
         "mockery/mockery": "~0.9"
     },

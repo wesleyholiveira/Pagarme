@@ -21,7 +21,7 @@
                                          alt="<?= $fantasia->getDescricao() ?>"/>
                                     <figcaption class="caption">
                                         <?= $fantasia->getDescricao() ?>
-                                        <span class="price">R$ <?= \App\Helpers\Helpers::moneyFormat($fantasia->getValor()) ?></span>
+                                        <span class="price"><?= \App\Helpers\Helpers::moneyFormat($fantasia->getValor()) ?></span>
                                     </figcaption>
                                 </figure>
                                 <button class="btn-add-cart">ADICIONAR AO CARRINHO</button>
@@ -32,34 +32,95 @@
                         echo $response;
                     }
                 ?>
-            </section>
-            <ul class="bar">
-                <li>
-                    <a href="#" class="cart">
-                        <i class="badge" id="badget"></i>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+                <button class="btn-checkout" id="finalizarCompra">Finalizar Compra</button>
+            </div>
+        </section>
+        <ul class="bar">
+            <li class="cart">
+                <a href="#">
+                    <i class="badge" id="badget"></i>
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <ul class="main-items">
+                    <?php
+                    if(is_array($response)) {
+                        foreach ($response as $fantasia) {
+                    ?>
+                    <li class="items">
+                        <a href="<?=$uri . '/fantasia/' . $fantasia->getId() ?>">
+                            <img src="<?=$fantasia->getImagem()->getUri()?>">
+                        </a>
+                    </li>
+                    <?php
+                        }
+                    }
+                    ?>
+                </ul>
+            </li>
+        </ul>
     </body>
     <script src="<?= $src ?>"></script>
     <script>
-       var listaBotoes = document.getElementsByClassName('btn-add-cart');
-       var clicks = 1;
-       for (i = 0; i < listaBotoes.length; i++) {
-           listaBotoes[i].addEventListener('click', function(e) {
-               var badge = document.getElementsByClassName('badge')[0];
-               badge.innerHTML = clicks;
-               badge.className = badge.className.replace(' badge-animation', '');
+        (function() {
 
-               setTimeout(function() {
-                   badge.className += ' badge-animation';
-               }, 50);
+            var itens = [];
 
-               clicks++;
-               e.preventDefault();
-           });
-       }
+//            finalizarCompra();
+            cartMenu(itens);
+            adicionarAoCarrinho(itens);
+
+            function finalizarCompra() {
+                var oReq = new XMLHttpRequest();
+                oReq.onload = function(response) {
+                    console.log(response);
+                };
+                oReq.open("get", "fantasia", true);
+                oReq.send();
+            }
+
+            function cartMenu(itens) {
+                var cart = document.getElementsByClassName('cart')[0];
+                var className = cart.parentNode.className;
+                cart.addEventListener('click', function() {
+                    if(itens.length > 0) {
+                        this.parentNode.className = className;
+                        this.parentNode.className += ' bar-animation';
+                    }
+                });
+            }
+
+            function adicionarAoCarrinho(itens) {
+                var finalizarCompra = document.getElementById('finalizarCompra');
+                var listaBotoes = document.getElementsByClassName('btn-add-cart');
+                var listaSubIcones = document.getElementsByClassName('items');
+                var badge = document.getElementsByClassName('badge')[0];
+                var badgeClassName = badge.className;
+                var j = 0;
+                for (i = 0; i < listaBotoes.length; i++) {
+                    listaBotoes[i].addEventListener('click', function(e) {
+                        itens.push(this.parentNode);
+
+                        finalizarCompra.style.display = 'block';
+                        listaSubIcones[j].style.display = 'inline-block';
+                        badge.innerHTML = itens.length;
+                        badge.className = badgeClassName;
+
+                        setTimeout(function() {
+                            badge.className += ' badge-animation';
+                        }, 50);
+
+                        this.innerHTML = 'ADICIONADO';
+                        this.disabled = true;
+
+                        j++;
+                        e.preventDefault();
+                    });
+                }
+            }
+        })();
+
+
     </script>
 </html>

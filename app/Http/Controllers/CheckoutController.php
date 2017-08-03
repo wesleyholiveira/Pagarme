@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Factories\Faker\BankAccountFactoryFaker;
-use App\Factories\Faker\RecipientFactoryFaker;
+use App\Helpers\Helpers;
 use App\Http\Validator\CheckoutValidator;
+use App\Services\PagarMeService;
 use Fig\Http\Message\StatusCodeInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use PagarMe\Sdk\PagarMeException;
 use \Exception;
 
@@ -16,57 +17,36 @@ use \Exception;
  */
 class CheckoutController extends Controller
 {
-    /** @var BankAccountFactoryFaker  */
-    protected $bankFactory;
+    /** @var  PagarMeService */
+    protected $pagarMe;
 
-    /** @var RecipientFactoryFaker  */
-    protected $recipientFactory;
-
-    /** @var CheckoutValidator  */
+    /** @var  CheckoutValidator */
     protected $validator;
 
-    /**
-     * CheckoutController constructor.
-     * @param BankAccountFactoryFaker $bankFactory
-     * @param RecipientFactoryFaker   $recipientFactory
-     * @param CheckoutValidator       $validator
-     */
     public function __construct(
-        BankAccountFactoryFaker $bankFactory,
-        RecipientFactoryFaker $recipientFactory,
+        PagarMeService $pagarMe,
         CheckoutValidator $validator
     )
     {
-        $this->bankFactory      = $bankFactory;
-        $this->recipientFactory = $recipientFactory;
-        $this->validator        = $validator;
+        $this->pagarMe = $pagarMe;
+        $this->validator = $validator;
     }
-
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function doCheckout(Request $request)
     {
         try {
-            $bankFactory        = $this->bankFactory;
-            $recipientFactory   = $this->recipientFactory;
-            $validator          = $this->validator;
+            $data = $request->all();
 
-            $data       = $request->all();
-            $recipient  = [];
-
+            // Valida os dados de entrada
             foreach($data as $fornecedor) {
-                // Valida os dados para o checkout
-                $validator->validate($fornecedor);
-
-                // Uma conta diferente para cada fornecedor
-                $bank = $bankFactory($fornecedor['nome']);
-
-                // Registrando os fornecedores
-                $recipient[] = $recipientFactory($bank);
+                $this->validator->validate($fornecedor);
             }
+
+            var_dump($this->pagarMe->doCheckout($data));
 
             return response()->json(
               ['descricao' => 'It works'],
@@ -74,13 +54,13 @@ class CheckoutController extends Controller
             );
         } catch(PagarMeException $e) {
             return response()->json(
-                json_decode($e->getMessage()),
+                $e->getMessage(),
                 StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR
             );
         } catch(Exception $e) {
             return response()->json(
-                json_decode($e->getMessage()),
-                StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR
+                ['descricao' => $e->getMessage()],
+                $e->getCode()
             );
         }
     }

@@ -1,5 +1,4 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const IconfontWebpackPlugin = require('iconfont-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename: "[name].[contenthash].css"
@@ -13,7 +12,7 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.scss$/,
+            test: /\.scss|css$/,
             use: [{
                 loader: "style-loader"
             }, {

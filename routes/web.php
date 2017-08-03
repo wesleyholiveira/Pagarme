@@ -33,4 +33,4 @@ $app->put('/imagem', 'ImagemController@put');
 $app->delete('/imagem[/{id}]', 'ImagemController@delete');
 
 // Checkout
-$app->post('/doCheckout', 'CheckoutController@doCheckout');
+$app->post('/checkout', 'CheckoutController@doCheckout');

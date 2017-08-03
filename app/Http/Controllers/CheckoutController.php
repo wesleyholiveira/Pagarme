@@ -46,10 +46,10 @@ class CheckoutController extends Controller
                 $this->validator->validate($fornecedor);
             }
 
-            var_dump($this->pagarMe->doCheckout($data));
+            $this->pagarMe->doCheckout($data);
 
             return response()->json(
-              ['descricao' => 'It works'],
+              ['descricao' => 'Compra efetuada com sucesso.'],
               StatusCodeInterface::STATUS_OK
             );
         } catch(PagarMeException $e) {

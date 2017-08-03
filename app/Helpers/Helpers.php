@@ -31,4 +31,11 @@ class Helpers
         return number_format($number, 2, ',', '.');
     }
 
+    public static function sanitizeStr(string $str)
+    {
+        $str = preg_replace('/(\d{2})\/(\d{2})/', '$1$2', $str);
+        $str = preg_replace('/(^["]|["]$)|("\\"|\\|\\"")/', '', $str);
+        return $str;
+    }
+
 }

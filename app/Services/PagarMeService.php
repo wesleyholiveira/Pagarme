@@ -2,78 +2,111 @@
 
 namespace App\Services;
 
-use PagarMe\Sdk\BankAccount\BankAccount;
+use App\Factories\Faker\BankAccountFactoryFaker;
+use App\Factories\Faker\CardFactoryFaker;
+use App\Factories\Faker\CustomerFactoryFaker;
+use App\Factories\Faker\RecipientFactoryFaker;
 use PagarMe\Sdk\PagarMe;
-use PagarMe\Sdk\Recipient\Recipient;
+use PagarMe\Sdk\SplitRule\SplitRuleCollection;
 
-class PagarMeService
+class PagarMeService implements InterfacePagarMeService
 {
-    private $pagarMe;
+    /** @var BankAccountFactoryFaker  */
+    protected $bankFactory;
 
-    public function __construct(PagarMe $pagarMe)
+    /** @var RecipientFactoryFaker  */
+    protected $recipientFactory;
+
+    /** @var  CustomerFactoryFaker */
+    protected $customerFactory;
+
+    /** @var CardFactoryFaker  */
+    protected $cardFactory;
+
+    /** @var  PagarMe */
+    protected $pagarMe;
+
+    public function __construct(
+        BankAccountFactoryFaker $bankFactory,
+        RecipientFactoryFaker $recipientFactory,
+        CustomerFactoryFaker $customerFactory,
+        CardFactoryFaker $cardFactory,
+        PagarMe $pagarMe
+    )
     {
-        $this->pagarMe = $pagarMe;
+        $this->bankFactory      = $bankFactory;
+        $this->recipientFactory = $recipientFactory;
+        $this->customerFactory  = $customerFactory;
+        $this->cardFactory      = $cardFactory;
+        $this->pagarMe          = $pagarMe;
     }
 
     /**
-     * @param string $bankCode
-     * @param string $agenciaNumber
-     * @param string $accountNumber
-     * @param string $accountDigit
-     * @param string $documentNumber
-     * @param string $legalName
-     * @param string $agenciaDigit
-     * @return \PagarMe\Sdk\BankAccount\BankAccount
+     * @param $data
+     * @return \PagarMe\Sdk\Transaction\CreditCardTransaction
      */
-    public function createBankAccount(
-        string $bankCode,
-        string $agenciaNumber,
-        string $accountNumber,
-        string $accountDigit,
-        string $documentNumber,
-        string $legalName,
-        string $agenciaDigit
-    ) : BankAccount
+    public function doCheckout($data)
     {
+        $bankFactory        = $this->bankFactory;
+        $recipientFactory   = $this->recipientFactory;
+        $customerFactory    = $this->customerFactory;
+        $cardFactory        = $this->cardFactory;
+
+        $valorCentavos      = 0;
+        $installments       = 1;
+        $capture            = true;
+        $postbackUrl        = '';
+        $metadata           = [];
+
+        $recipientMaria     = null;
+        $splitrules         = new SplitRuleCollection();
+
+        foreach($data as $fornecedor) {
+            // Uma conta diferente para cada fornecedor
+            $bank = $bankFactory($fornecedor['nome']);
+
+            // Registrando os fornecedores
+            $recipient = $recipientFactory($bank);
+
+            if ($fornecedor['nome'] == 'Maria Barros') {
+                $splitrules[] = $this->pagarMe->splitRule()->percentageRule(
+                    15,
+                    $recipient,
+                    true,
+                    true
+                );
+            } else {
+                $splitrules[] = $this->pagarMe->splitRule()->percentageRule(
+                    85,
+                    $recipient,
+                    true,
+                    true
+                );
+            }
+            $valorCentavos += $fornecedor['valor'];
+        }
+
+        // Criando um novo cliente
+        $customer = $customerFactory();
+
+        // Criando um novo cartão
+        $card = $cardFactory();
+
+        // Converte para centavos
+        $valorCentavos = ($valorCentavos + InterfacePagarMeService::TAX_SHIPMENT) * 100;
+
         return (
-            $this->pagarMe->bankAccount()->create(
-                $bankCode,
-                $agenciaNumber,
-                $accountNumber,
-                $accountDigit,
-                $documentNumber,
-                $legalName,
-                $agenciaDigit
+            $this->pagarMe->transaction()->creditCardTransaction(
+                $valorCentavos,
+                $card,
+                $customer,
+                $installments,
+                $capture,
+                $postbackUrl,
+                $metadata,
+                ['split_rules' => $splitrules]
             )
         );
     }
 
-    /**
-     * @param BankAccount $bankAccount
-     * @param string      $transferInterval
-     * @param bool        $transferEnabled
-     * @param bool        $automaticAnticipationEnabled
-     * @param float       $anticipatableVolumePercentage
-     * @return Recipient
-     */
-    public function createRecipient(
-        BankAccount $bankAccount,
-        string $transferInterval,
-        int $transferDay,
-        bool $transferEnabled,
-        bool $automaticAnticipationEnabled,
-        float $anticipatableVolumePercentage
-    ) : Recipient
-    {
-        return (
-            $this->pagarMe->recipient()->create(
-                $bankAccount,
-                $transferInterval,
-                $transferDay,
-                $transferEnabled,
-                $automaticAnticipationEnabled,
-                $anticipatableVolumePercentage
-            )
-        );
-    }
 }

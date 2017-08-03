@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wesle
- * Date: 03/08/2017
- * Time: 10:04
- */
+
+namespace App\Services;
+
+interface InterfacePagarMeService
+{
+    const TAX_SHIPMENT = 42.00;
+
+    public function doCheckout($data);
+}

@@ -45,7 +45,7 @@ class CustomerFactoryFaker
                     'country'       => 'Brasil'
                 ]),
                 'phone' => new Phone([
-                    'ddd'    => $faker->randomNumber(2),
+                    'ddd'    => '15',
                     'number' => sprintf("9%d", $faker->randomNumber(8))
                 ]),
                 'born_at' => sprintf('%d%d%d',

@@ -2,13 +2,13 @@
 
 namespace App\Factories\Faker;
 
-use App\Services\PagarMeService;
 use Faker\Generator;
 use Faker\Provider\pt_BR\Person;
+use PagarMe\Sdk\PagarMe;
 
 class BankAccountFactoryFaker
 {
-    /** @var PagarMeService */
+    /** @var PagarMe */
     private $pagarMe;
 
     /** @var Generator */
@@ -16,10 +16,10 @@ class BankAccountFactoryFaker
 
     /**
      * BankAccountFactoryFaker constructor.
-     * @param PagarMeService $pagarMe
+     * @param PagarMe       $pagarMe
      * @param Generator      $faker
      */
-    public function __construct(PagarMeService $pagarMe, Generator $faker)
+    public function __construct(PagarMe $pagarMe, Generator $faker)
     {
         $this->pagarMe = $pagarMe;
         $this->faker = $faker;
@@ -37,7 +37,7 @@ class BankAccountFactoryFaker
         $legalName      = sprintf('%s', $name);
         $agenciaDigit   = $faker->randomDigit();
 
-        return $this->pagarMe->createBankAccount(
+        return $this->pagarMe->bankAccount()->create(
             $bankCode,
             $agenciaNumber,
             $accountNumber,

@@ -43,7 +43,6 @@ class PagarMeService implements InterfacePagarMeService
 
     /**
      * @param $data
-     * @return \PagarMe\Sdk\Transaction\CreditCardTransaction
      */
     public function doCheckout($data)
     {
@@ -59,9 +58,11 @@ class PagarMeService implements InterfacePagarMeService
         $metadata           = [];
 
         $recipientMaria     = null;
-        $splitrules         = new SplitRuleCollection();
 
         foreach($data as $fornecedor) {
+
+            $splitrules = new SplitRuleCollection();
+
             // Uma conta diferente para cada fornecedor
             $bank = $bankFactory($fornecedor['nome']);
 
@@ -70,12 +71,18 @@ class PagarMeService implements InterfacePagarMeService
 
             if ($fornecedor['nome'] == 'Maria Barros') {
                 $splitrules[] = $this->pagarMe->splitRule()->percentageRule(
-                    15,
+                    100,
                     $recipient,
                     true,
                     true
                 );
             } else {
+                $splitrules[] = $this->pagarMe->splitRule()->percentageRule(
+                    15,
+                    $recipient,
+                    true,
+                    true
+                );
                 $splitrules[] = $this->pagarMe->splitRule()->percentageRule(
                     85,
                     $recipient,
@@ -83,19 +90,15 @@ class PagarMeService implements InterfacePagarMeService
                     true
                 );
             }
-            $valorCentavos += $fornecedor['valor'];
-        }
 
-        // Criando um novo cliente
-        $customer = $customerFactory();
+            $valorCentavos = ($fornecedor['valor'] + InterfacePagarMeService::TAX_SHIPMENT) * 100;
 
-        // Criando um novo cartão
-        $card = $cardFactory();
+            // Criando um novo cliente
+            $customer = $customerFactory();
 
-        // Converte para centavos
-        $valorCentavos = ($valorCentavos + InterfacePagarMeService::TAX_SHIPMENT) * 100;
+            // Criando um novo cartão
+            $card = $cardFactory();
 
-        return (
             $this->pagarMe->transaction()->creditCardTransaction(
                 $valorCentavos,
                 $card,
@@ -105,8 +108,11 @@ class PagarMeService implements InterfacePagarMeService
                 $postbackUrl,
                 $metadata,
                 ['split_rules' => $splitrules]
-            )
-        );
+            );
+
+        }
+
+        return true;
     }
 
 }

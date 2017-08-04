@@ -21,8 +21,9 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
  Rodar os seguintes comandos para baixar o projeto:
  ```
  git clone https://github.com/wesleyholiveira/Pagarme \
- && chmod -R 777 ./Pagarme/storage/logs \
- && chmod -R 777 ./Pagarme/storage/proxies \
+ && cd Pagarme \
+ && chmod -R 777 storage/logs \
+ && chmod -R 777 storage/proxies \
  && mv .env.example .env
  ```
  

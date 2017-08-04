@@ -1,4 +1,5 @@
 server {
+    server_name localhost;
     root /application/public;
     index index.php;
 

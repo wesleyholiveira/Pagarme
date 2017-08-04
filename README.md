@@ -22,7 +22,8 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
  ```
  git clone https://github.com/wesleyholiveira/Pagarme \
  && chmod -R 777 ./Pagarme/storage/logs \
- && chmod -R 777 ./Pagarme/storage/proxies
+ && chmod -R 777 ./Pagarme/storage/proxies \
+ && mv .env.example .env
  ```
  
  Toda a configuraçao do projeto esta localizada no arquivo **.env.example**, renomeie para **.env**.

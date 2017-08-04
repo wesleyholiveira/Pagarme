@@ -118,6 +118,25 @@ As requisições DELETE são um pouco diferentes, basta passar o ID da fantasia 
 curl -X DELETE http://<uri>/fantasia/1
 ```
 
+## Fornecedor / Imagem
+Aplica-se o mesmo conceito do endpoint para fantasias.
+
+ ### Estrutura
+   #### Fornecedor
+   ```
+   {
+       "id"            : "<id_fornecedor>",
+       "nome"          : "<nome_fornecedor>"
+   }
+   ```
+   #### Imagem
+      ```
+      {
+          "id"            : "<id_imagem>",
+          "uri"           : "<uri_imagem>"
+      }
+      ```
+
 ## Considerações finais
 O projeto está longe de ser algo bom, tanto é que nem possui teste os unitários por falta de tempo mas segue a lista de possíveis implementações que penso em realizar em um futuro:
 

@@ -137,12 +137,12 @@ Aplica-se o mesmo conceito do endpoint para fantasias.
    }
    ```
    #### Imagem
-      ```
-      {
-          "id"            : "<id_imagem>",
-          "uri"           : "<uri_imagem>"
-      }
-      ```
+   ```
+   {
+        "id"            : "<id_imagem>",
+        "uri"           : "<uri_imagem>"
+   }
+   ```
 
 ## Considerações finais
 O projeto está longe de ser algo bom, tanto é que nem possui teste os unitários por falta de tempo mas segue a lista de possíveis implementações que penso em realizar em um futuro:
@@ -154,5 +154,5 @@ O projeto está longe de ser algo bom, tanto é que nem possui teste os unitári
 * Notifications
 * Testes unitários
 * Testes comportamentais
-* Refactoring
+* Refactoring (principalmente a parte de services)
 * Utilizar tecnologias modernas para a view (React, Angular ou [algum FW JS da vez])

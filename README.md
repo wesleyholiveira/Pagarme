@@ -27,7 +27,7 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
  && mv .env.example .env
  ```
  
- Toda a configuraçao do projeto esta localizada no arquivo **.env.example**, renomeie para **.env**.
+ O arquivo **.emv** responsável por setar as variáveis de ambiente e definir as configurações da aplicação:
  ```
  PAGARME_KEY=<api_key_pagarme>
 

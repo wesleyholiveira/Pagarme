@@ -56,7 +56,7 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
  Para rodar o projeto basta executar os seguintes comandos:
  ```
  docker-compose build
- docker-compose up -d
+ docker-compose up
  ```
 
 

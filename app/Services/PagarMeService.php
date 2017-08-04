@@ -70,6 +70,7 @@ class PagarMeService implements InterfacePagarMeService
             $recipient = $recipientFactory($bank);
 
             if ($fornecedor['nome'] == 'Maria Barros') {
+                $recipientMaria = $recipient;
                 $splitrules[] = $this->pagarMe->splitRule()->percentageRule(
                     100,
                     $recipient,
@@ -79,7 +80,7 @@ class PagarMeService implements InterfacePagarMeService
             } else {
                 $splitrules[] = $this->pagarMe->splitRule()->percentageRule(
                     15,
-                    $recipient,
+                    $recipientMaria,
                     true,
                     true
                 );

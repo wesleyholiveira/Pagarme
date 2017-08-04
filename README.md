@@ -27,7 +27,7 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
  && mv .env.example .env
  ```
  
- O arquivo **.env** responsável por setar as variáveis de ambiente e definir as configurações da aplicação:
+ O arquivo **.env** é responsável por setar as variáveis de ambiente e definir as configurações da aplicação:
  ```
  PAGARME_KEY=<api_key_pagarme>
 
@@ -90,10 +90,10 @@ As requisições do tipo POST **devem** ser enviadas em JSON **(RAW)** com *Cont
 
 ```
 {
-"descricao"		: "<descricao_fantasia>",
-"valor"			: "<valor_fantasia>",
-"imagemId"		: "<id_imagem>",
-"fornecedorId"	: "<id_fornecedor>"
+    "descricao"		: "<descricao_fantasia>",
+    "valor"			: "<valor_fantasia>",
+    "imagemId"		: "<id_imagem>",
+    "fornecedorId"	: "<id_fornecedor>"
 }
 ```
 *Lembrando que todos estes campos são obrigatórios*

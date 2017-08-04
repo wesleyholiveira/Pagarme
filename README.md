@@ -82,7 +82,7 @@ As requisições do tipo GET pode se passar um parametro com ID da fantasia que 
 
 **Exemplo de requisição:**
 ```
-curl -sb "http://<uri>/fantasia"
+curl "http://<uri>/fantasia"
 ```
 
 ### POST

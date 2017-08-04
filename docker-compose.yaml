@@ -54,5 +54,6 @@ services:
   mysql_dump:
    container_name: mysql_dump
    build: ./server/MySQL
+   restart: 'always'
    links:
     - mysql

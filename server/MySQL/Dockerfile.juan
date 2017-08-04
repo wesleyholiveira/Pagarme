@@ -1,0 +1,8 @@
+FROM mysql
+
+ENV - MYSQL_ROOT_PASSWORD=pagarmeprojeto258456
+ENV - MYSQL_DATABASE=pagarme
+
+ADD ../../database/migrations/pagarme.sql /tmp/imhere.sql
+
+RUN "mysql -u root --password="pagarmeprojeto258456" pagarme < /tmp/imhere.sql"

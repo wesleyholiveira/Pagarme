@@ -1,10 +1,5 @@
-FROM debian:alpine
-
-RUN apt-get update && apt-get install -y nginx
-
-RUN usermod -u 1000 www-data
-RUN chown -R $USER:$USER /var/www/html
-RUN chmod -R 755 /var/www/html
+FROM nginx:alpine
+RUN mkdir -p /app/public
 CMD ["nginx"]
 
 EXPOSE 80

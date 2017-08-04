@@ -1,0 +1,8 @@
+[client]
+user = root
+password = pagarmeprojeto258456
+host = mysql
+[mypath]
+user = root
+password = pagarmeprojeto258456
+host = mysql

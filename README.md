@@ -123,6 +123,7 @@ curl -H "Content-Type: application/json" -X PUT -d '{"id": 1, "descricao": "Nova
 ### DELETE
 As requisições DELETE são um pouco diferentes, basta passar o ID da fantasia que deseja deletar, assemelhando-se ao **GET**.
 
+**Exemplo de requisição:**
 ```
 curl -X DELETE http://<uri>/fantasia/1
 ```

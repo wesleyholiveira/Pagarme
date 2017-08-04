@@ -90,9 +90,9 @@ As requisições do tipo POST **devem** ser enviadas em JSON **(RAW)** com *Cont
 
 ```
 {
-    "descricao"		: "<descricao_fantasia>",
-    "valor"			: "<valor_fantasia>",
-    "imagemId"		: "<id_imagem>",
+    "descricao"		  : "<descricao_fantasia>",
+    "valor"			    : "<valor_fantasia>",
+    "imagemId"		  : "<id_imagem>",
     "fornecedorId"	: "<id_fornecedor>"
 }
 ```

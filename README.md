@@ -7,13 +7,13 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
 ## Requisitos
 * Docker [https://docs.docker.com/docker-for-windows/install/]
 * Docker-compose [https://docs.docker.com/compose/install/]
+* Node [https://nodejs.org/en/download/]
   
 ## O que tem dentro?
 * Nginx
 * PHP7 e FPM
 * Composer
 * MySQL
-* Node 
 
 ## Configurações
  
@@ -25,6 +25,9 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
  && chmod -R 777 storage/logs \
  && chmod -R 777 storage/proxies \
  && mv .env.example .env
+ && cd public
+ && npm install
+ && webpack
  ```
  
  O arquivo **.env** é responsável por setar as variáveis de ambiente e definir as configurações da aplicação:

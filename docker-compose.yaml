@@ -9,13 +9,6 @@ services:
     links:
       - mysql
 
-  node:
-    container_name: node
-    build: ./server/Node
-    command: ["webpack","--config","/application/public/webpack.config.js"]
-    volumes:
-      - .:/application
-
   nginx:
     container_name: nginx
     image: nginx:latest

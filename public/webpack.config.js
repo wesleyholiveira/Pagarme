@@ -1,25 +1,24 @@
 module.exports = {
-    context: __dirname,
-    entry: '/application/public/src/app.js',
+    entry: './src/app.js',
     output: {
-         path: '/application/public/bin',
+         path: __dirname + '/bin',
          filename: 'app.bundle.js' 
     },
     module: {
         rules: [{
-            test: /\.scss/,
-            use: [{
-                loader: "style-loader",
-            }, {
-                loader: "css-loader"
-            }, {
-                loader: "sass-loader"
-            }]
-        }]
-    },
-    resolve: {
-    	extensions: ['.js','.jsx','.css','.sass'],
-        modules: ['node_modules']
+            test: /\.scss$/,
+            use: [
+		    {loader: 'style-loader'},
+		    {loader: 'css-loader'},
+		    {loader: 'sass-loader'}
+	    ]
+        }, {
+	   test: /\.css$/,
+	   use: [
+	   	{loader: 'style-loader'},
+		{loader: 'css-loader'}
+	   ]
+	}]
     },
     plugins: [
     ]

@@ -9,7 +9,6 @@ class ImagemFactory
     /**
      * @param int|null         $id
      * @param string           $uri
-     * @param FantasiaEntity   $fantasiaEntity
      * @return ImagemEntity
      */
     public function __invoke(

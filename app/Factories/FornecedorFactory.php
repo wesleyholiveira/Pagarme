@@ -13,7 +13,6 @@ class FornecedorFactory
     /**
      * @param int|null $id
      * @param string   $nome
-     * @param float    $comissao
      * @return FornecedorEntity
      */
     public function __invoke(

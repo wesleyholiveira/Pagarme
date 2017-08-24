@@ -24,9 +24,9 @@ Um projeto que faz interface com o SDK da Pagarme para realizar o checkout das f
  && cd Pagarme \
  && chmod -R 777 storage/logs \
  && chmod -R 777 storage/proxies \
- && mv .env.example .env
- && cd public
- && npm install
+ && mv .env.example .env \
+ && cd public \
+ && npm install  \
  && webpack
  ```
  
